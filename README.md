@@ -2,7 +2,7 @@
 description: 'https://tryhackme.com/room/owasptop10'
 ---
 
-# \[Writeup\] Try Hack Me – OWASP Top 10 Challenge for 10 Days
+# \[Writeups\] Try Hack Me – OWASP Top 10 Challenge for 10 Days
 
 ## **Day 1 – OS Command Injection**
 
