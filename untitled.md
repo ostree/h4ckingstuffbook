@@ -20,15 +20,15 @@ This CTF's writeups was done by @m14ghost
 
 | Challenges | Points | Status |
 | :--- | :--- | :--- |
-| [Insp3ct0r]() | 50 | Solved |
-| [dont-use-client-side]() | 100 | Solved |
-| [logon]() | 100 | Solved |
-| [where are the robots]() | 100 | Solved |
-| [Client-side-again]() | 200 | Solved |
-| [Open-to-admins]() | 200 | Solved |
-| [picobrowser](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master) | 200 | Solved |
-| [Irish-Name-Repo 1]() | 300 | Solved |
-| [Irish-Name-Repo 2]() | 350 | Solved |
+| [Insp3ct0r](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Insp3ct0r.md) | 50 | Solved |
+| [dont-use-client-side](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/dont-use-client-side.md) | 100 | Solved |
+| [logon](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/logon.md) | 100 | Solved |
+| [where are the robots](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/where-are-the-robots.md) | 100 | Solved |
+| [Client-side-again](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Client-side-again.md) | 200 | Solved |
+| [Open-to-admins](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Open-to-admins.md) | 200 | Solved |
+| [picobrowse](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/picobrowser.md)r | 200 | Solved |
+| [Irish-Name-Repo 1](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Irish-Name-Repo1.md) | 300 | Solved |
+| [Irish-Name-Repo 2](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Irish-Name-Repo2.md) | 350 | Solved |
 | [Java Script Kiddie](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Java-Script-Kiddie.md) | 400 | Solved |
 | [Empire1](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Empire1.md) | 400 | Solved |
 
