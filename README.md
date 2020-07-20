@@ -138,7 +138,7 @@ IDOR, or Insecure Direct Object Reference, is the act of exploiting a misconfigu
 
 Flag: [http://10.10.181.221/note.php?note=0](http://10.10.181.221/note.php?note=0)
 
-## **Day 5 –** Cross-site Scripting \(XSS\)
+## **Day 6 –** Cross-site Scripting \(XSS\)
 
 Cross-site scripting, also known as XSS is a security vulnerability typically found in web applications. It’s a type of injection that can allow an attacker to execute malicious scripts and have it execute on a victim’s machine.
 
