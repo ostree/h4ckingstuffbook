@@ -32,7 +32,7 @@ This CTF's writeups was done by @m14ghost
 | [Java Script Kiddie](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Java-Script-Kiddie.md) | 400 | Solved |
 | [Empire1](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Web%20Exploitation/Empire1.md) | 400 | Solved |
 
-## Crytography
+## Cryptography
 
 | Challenges | Points | Status |
 | :--- | :--- | :--- |
@@ -41,7 +41,7 @@ This CTF's writeups was done by @m14ghost
 | [Easy1](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Cryptography/Easy1.md) | 100 | Solved |
 | [caesar](https://github.com/m14ghost/PicoCTF-2019-Writeup/blob/master/Cryptography/caesar.md) | 100 | Solved |
 
-## Foresics
+## Forensics
 
 | Challenges | Points | Status |
 | :--- | :--- | :--- |

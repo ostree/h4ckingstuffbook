@@ -2,7 +2,7 @@
 description: 'https://tryhackme.com/room/owasptop10'
 ---
 
-# \[Writeups\] Try Hack Me – OWASP Top 10 Challenge for 10 Days
+# \[Writeup\] Try Hack Me – OWASP Top 10 Challenge for 10 Days
 
 ## **Day 1 – OS Command Injection**
 
@@ -155,7 +155,7 @@ Remember, cross-site scripting is a vulnerability that can be exploited to execu
 
 
 
-#### _\#2 Go to_ `http://MACHINE_IP/reflected` _``and craft a reflected XSS payload that will cause a popup saying "Hello"._
+#### _\#2 Go to_ [_http://10.10.197.117/reflected_](http://10.10.197.117/reflected) _and craft a reflected XSS payload that will cause a popup saying "Hello"._
 
 Payload: `<script>alert("Hello")</script>`
 
@@ -163,7 +163,7 @@ Payload: `<script>alert("Hello")</script>`
 
 Payload: `alert(window.location.hostname)`
 
-#### _\#4 Now navigate to_ `http://MACHINE_IP/stored`_and make an account. Then add a comment and see if you can insert some of your own HTML._
+#### _\#4 Now navigate to_ [_http://10.10.197.117/stored_](http://10.10.197.117/stored) _and make an account. Then add a comment and see if you can insert some of your own HTML._
 
 Payload: `document.querySelector('code').textContent =thanks`
 
