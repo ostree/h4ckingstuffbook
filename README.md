@@ -6,7 +6,7 @@ description: 'https://tryhackme.com/room/owasptop10'
 
 ## **Day 1 – OS Command Injection**
 
-Command Injection occurs when server-side code \(like PHP\) in a web application makes a system call on the hosting machine. It is a web vulnerability that allows an attacker to take advantage of that made system call to execute operating system commands on the server. Sometimes this won't always end in something malicious, like a _whoami_ or just reading of files. That isn't too bad. But the thing about command injection is it opens up many options for the attacker. The worst thing they could do would be to spawn a reverse shell to become the user that the webserver is running as. 
+Command Injection occurs when server-side code \(like PHP\) in a web application makes a system call on the hosting machine. It is a web vulnerability that allows an attacker to take advantage of that made system call to execute operating system commands on the server. Sometimes this won't always end in something malicious, like a _`whoami`_or just reading of files. That isn't too bad. But the thing about command injection is it opens up many options for the attacker. The worst thing they could do would be to spawn a reverse shell to become the user that the webserver is running as. 
 
 A simple `;nc -e /bin/bash` is all that's needed and they own your server. some variants of `netcat` don't support the -e option. You can use a list of these reverse shells as an alternative.
 
