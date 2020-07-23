@@ -138,7 +138,23 @@ IDOR, or Insecure Direct Object Reference, is the act of exploiting a misconfigu
 
 Flag: [http://10.10.181.221/note.php?note=0](http://10.10.181.221/note.php?note=0)
 
-## **Day 6 –** Cross-site Scripting \(XSS\)
+## **Day 6 –** Security Misconfiguration
+
+Security misconfiguration can happen at any level of an application stack, including the network services, platform, web server, application server, database, frameworks, custom code, and pre-installed virtual machines, containers, or storage. Automated scanners are useful for detecting misconfigurations, use of default accounts or configurations, unnecessary services, legacy options, etc.
+
+Attackers will often attempt to exploit unpatched flaws or access default accounts, unused pages, unprotected files and directories, etc..., to gain unauthorized access or knowledge of the system
+
+Security misconfigurations include:
+
+* Poorly configured permissions on cloud services, like S3 buckets
+* Having unnecessary features enabled, like services, pages, accounts or privileges
+* Default accounts with unchanged passwords
+* Error messages that are overly detailed and allow an attacker to find out more about the system
+* Not using [HTTP security headers](https://owasp.org/www-project-secure-headers/), or revealing too much detail in the Server: HTTP header
+
+This vulnerability can often lead to more vulnerabilities, such as default credentials giving you access to sensitive data, XXE or command injection on admin pages. For more information [https://owasp.org/www-project-top-ten/OWASP\_Top\_Ten\_2017/Top\_10-2017\_A6-Security\_Misconfiguration](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)
+
+## **Day 7 –** Cross-site Scripting \(XSS\)
 
 Cross-site scripting, also known as XSS is a security vulnerability typically found in web applications. It’s a type of injection that can allow an attacker to execute malicious scripts and have it execute on a victim’s machine.
 
@@ -175,7 +191,7 @@ Payload: `<script>alert(document.cookie)</script>`
 
 Payload: `document.querySelector('#thm-title').textContent = 'I am a hacker'`
 
-## **Day 7 –** Insecure Deserialization
+## **Day 8 –** Insecure Deserialization
 
 "Insecure Deserialization is a vulnerability which occurs when untrusted data is used to abuse the logic of an application" \(Acunetix., 2017\)
 
@@ -290,7 +306,7 @@ After run `rce.py` file I've got shell then look for flag.txt in `/home/cmnatic/
 
 Flag: `4a69a7ff9fd68`
 
-## Day 8 - Components With Known Vulnerabilities
+## Day 9 - Components With Known Vulnerabilities
 
 Occasionally, you may find that the company/entity that you're pen-testing is using a program that already has a well-documented vulnerability.
 
@@ -363,6 +379,57 @@ RCE $ wc /etc/passwd
 ```
 
 Flag: `1611`
+
+## Day 10 - Insufficient Logging and Monitoring
+
+When web applications are set up, every action performed by the user should be logged. Logging is important because in the event of an incident, the attackers actions can be traced. Once their actions are traced, their risk and impact can be determined. Without logging, there would be no way to tell what actions an attacker performed if they gain access to particular web applications. The bigger impacts of these include:
+
+* _**regulatory damage**_: if an attacker has gained access to personally identifiable user information and there is no record of this, not only are users of the application affected, but the application owners may be subject to fines or more severe actions depending on regulations.
+* _**risk of further attacks**_: without logging, the presence of an attacker may be undetected. This could allow an attacker to launch further attacks against web application owners by stealing credentials, attacking infrastructure and more.
+
+The information stored in logs should include:
+
+* HTTP status codes
+* Time Stamps
+* Usernames
+* API endpoints/page locations
+* IP addresses
+
+These logs do have some sensitive information on them so its important to ensure that logs are stored securely and multiple copies of these logs are stored at different locations.
+
+As you may have noticed, logging is more important after a breach or incident has occurred. The ideal is case is having monitoring in place to detect any suspicious activity. The aim of detecting this suspicious activity is to either stop the attacker completely or reduce the impact they've made if their presence has been detected much later than anticipated. Common examples of suspicious activity includes:
+
+* multiple unauthorised attempts for a particular action \(usually authentication attempts or access to unauthorised resources e.g. admin pages\)
+* requests from anomalous IP addresses or locations: while this can indicate that someone else is trying to access a particular user's account, it can also have a false positive rate.
+* use of automated tools: particular automated tooling can be easily identifiable e.g. using the value of User-Agent headers or the speed of requests. This can indicate an attacker is using automated tooling.
+* common payloads: in web applications, it's common for attackers to use Cross Site Scripting \(XSS\) payloads. Detecting the use of these payloads can indicate the presence of someone conducting unauthorised/malicious testing on applications.
+
+Just detecting suspicious activity isn't helpful. This suspicious activity needs to be rated according to the impact level. For example, certain actions will higher impact than others. These higher impact actions need to be responded to sooner thus they should raise an alarm which raises the attention of the relevant party.
+
+_**\#1 What IP address is the attacker using?**_
+
+```text
+// login-logs.txt
+200 OK           12.55.22.88 jr22          2019-03-18T09:21:17 /login
+200 OK           14.56.23.11 rand99        2019-03-18T10:19:22 /login
+200 OK           17.33.10.38 afer11        2019-03-18T11:11:44 /login
+200 OK           99.12.44.20 rad4          2019-03-18T11:55:51 /login
+200 OK           67.34.22.10 bff1          2019-03-18T13:08:59 /login
+200 OK           34.55.11.14 hax0r         2019-03-21T16:08:15 /login
+401 Unauthorised 49.99.13.16 admin         2019-03-21T21:08:15 /login
+401 Unauthorised 49.99.13.16 administrator 2019-03-21T21:08:20 /login
+401 Unauthorised 49.99.13.16 anonymous     2019-03-21T21:08:25 /login
+401 Unauthorised 49.99.13.16 root          2019-03-21T21:08:30 /login 
+```
+
+Flag: `49.99.13.16`
+
+_**\#2 What kind of attack is being carried out?**_
+
+Flag: ****`brute force`  
+****
+
+
 
 
 
