@@ -39,3 +39,11 @@
     * [OverFlow-0](https-github.com-m14ghost-picoctf-2019-writeup/binary-exploitation-1/overflow-0.md)
     * [handy-shellcode](https-github.com-m14ghost-picoctf-2019-writeup/binary-exploitation-1/binary-exploitation.md)
 
+## Notion Notes
+
+* [My Computer Science Path](https://www.notion.so/m14ghost/Computer-Science-be9e65ca150c46d8bd16a4a97f991e65)
+
+---
+
+* [Networking Notes](https://www.notion.so/m14ghost/Computer-Networking-6d6eb079272e4d4091d55c83d36e8931)
+
