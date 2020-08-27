@@ -43,7 +43,3 @@
 
 * [My Computer Science Path](https://www.notion.so/m14ghost/Computer-Science-be9e65ca150c46d8bd16a4a97f991e65)
 
----
-
-* [Networking Notes](https://www.notion.so/m14ghost/Computer-Networking-6d6eb079272e4d4091d55c83d36e8931)
-
