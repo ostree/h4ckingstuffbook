@@ -41,5 +41,5 @@
 
 ## Notion Notes
 
-* [My Computer Science Path](https://www.notion.so/m14ghost/Computer-Science-be9e65ca150c46d8bd16a4a97f991e65)
+* [Networking Notes](https://www.notion.so/m14ghost/Networking-Notes-Coursera-ed1c5b9e76ea4a3981a8c39f8727df19)
 
