@@ -1,6 +1,7 @@
 # Table of contents
 
 * [\[Writeups\] THM – OWASP Top 10 Challenge for 10 Days](README.md)
+* [\[Writeups\] THM - Linux PrivEsc](writeups-thm-linux-privesc.md)
 * [\[Writeups\] PicoCTF 2019](https-github.com-m14ghost-picoctf-2019-writeup/README.md)
   * [Web Exploitation](https-github.com-m14ghost-picoctf-2019-writeup/web-exploitation-1/README.md)
     * [Irish-Name-Repo1](https-github.com-m14ghost-picoctf-2019-writeup/web-exploitation-1/irish-name-repo1.md)
@@ -38,7 +39,6 @@
     * [practice-run-1](https-github.com-m14ghost-picoctf-2019-writeup/binary-exploitation-1/practice-run-1.md)
     * [OverFlow-0](https-github.com-m14ghost-picoctf-2019-writeup/binary-exploitation-1/overflow-0.md)
     * [handy-shellcode](https-github.com-m14ghost-picoctf-2019-writeup/binary-exploitation-1/binary-exploitation.md)
-* [\[Writeups\] THM - Linux PrivEsc](writeups-thm-linux-privesc.md)
 
 ## Notion Notes
 
