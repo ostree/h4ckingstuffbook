@@ -1,6 +1,6 @@
 # Table of contents
 
-* [\[Writeups\] Try Hack Me – OWASP Top 10 Challenge for 10 Days](README.md)
+* [\[Writeups\] THM – OWASP Top 10 Challenge for 10 Days](README.md)
 * [\[Writeups\] PicoCTF 2019](https-github.com-m14ghost-picoctf-2019-writeup/README.md)
   * [Web Exploitation](https-github.com-m14ghost-picoctf-2019-writeup/web-exploitation-1/README.md)
     * [Irish-Name-Repo1](https-github.com-m14ghost-picoctf-2019-writeup/web-exploitation-1/irish-name-repo1.md)
