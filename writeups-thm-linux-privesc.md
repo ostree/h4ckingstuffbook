@@ -4,7 +4,7 @@ description: 'https://tryhackme.com/room/linuxprivesc'
 
 # \[Writeups\] THM - Linux PrivEsc
 
-## \[Task 1\] - Deploy the Vulnerable Debian VM
+## \[Task 1\] Deploy the Vulnerable Debian VM
 
 **\#2 Run the "id" command. What is the result?**
 
@@ -12,7 +12,7 @@ description: 'https://tryhackme.com/room/linuxprivesc'
 uid=1000(user) gid=1000(user) groups=1000(user),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev)
 ```
 
-## \[Task 2\] **-** Service Exploits
+## \[Task 2\] ****Service Exploits
 
 The MySQL service is running as root and the "root" user for the service does not have a password assigned. We can use a [popular exploit](https://www.exploit-db.com/exploits/1518) that takes advantage of User Defined Functions \(UDFs\) to run system commands as root via the MySQL service.
 
@@ -51,4 +51,10 @@ Exit out of the MySQL shell \(type **exit** or **\q** and press **Enter**\) and 
 
 `rm /tmp/rootbash  
 exit`
+
+## \[Task 3\] Weak File Permissions - Readable /etc/shadow
+
+The /etc/shadow file contains user password hashes and is usually readable only by the root user.
+
+
 
